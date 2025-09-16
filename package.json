@@ -1,0 +1,41 @@
+{
+  "name": "surgery-checklist-app",
+  "version": "1.0.0",
+  "description": "A local application for creating surgical procedure templates and patient checklists.  Built as an offline web app with optional Electron wrapper.",
+  "main": "main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^29.3.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.example.surgerychecklist",
+    "productName": "Surgery Checklist App",
+    "files": [
+      "!dist",
+      "!node_modules",
+      "index.html",
+      "style.css",
+      "app.js",
+      "main.js",
+      "preload.js"
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ]
+    }
+  }
+}
