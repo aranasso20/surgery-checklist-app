@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surgery Checklist App</title>
+  <!--
+    This application is a simple offline web app intended to run in a browser or
+    be bundled into an Electron container.  The UI uses vanilla JavaScript and
+    CSS with custom themes to provide a modern, compact interface.  All data
+    (templates and patient records) are persisted to the browser's localStorage
+    so that the application can operate without a network connection.
+
+    See app.js for the implementation of page logic and data handling.
+  -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-title">Surgery Checklist App</div>
+    <nav class="nav">
+      <!-- Navigation buttons toggle the visible section below -->
+      <button data-page="templates" class="nav-btn active">Templates</button>
+      <button data-page="records" class="nav-btn">New Record</button>
+      <button data-page="patients" class="nav-btn">Patients</button>
+    </nav>
+    <button id="themeToggle" class="theme-toggle">Dark mode</button>
+  </header>
+  <main class="main">
+    <!-- Template management section -->
+    <section id="templates" class="page">
+      <h2>Create or Edit Template</h2>
+      <form id="templateForm" class="card">
+        <label for="templateName">Template name</label>
+        <input type="text" id="templateName" name="templateName" required>
+        <div class="fields-container">
+          <!-- Constant fields are always present. They are displayed here for reference
+               but are not removable or editable. -->
+          <div class="field-row constant-field" data-field-name="Name">
+            <span class="field-label">Name</span>
+            <span class="field-type">text (constant)</span>
+          </div>
+          <div class="field-row constant-field" data-field-name="Age">
+            <span class="field-label">Age</span>
+            <span class="field-type">number (constant)</span>
+          </div>
+          <div class="field-row constant-field" data-field-name="Gender">
+            <span class="field-label">Gender</span>
+            <span class="field-type">text (constant)</span>
+          </div>
+          <div class="field-row constant-field" data-field-name="Phone">
+            <span class="field-label">Phone</span>
+            <span class="field-type">text (constant)</span>
+          </div>
+          <div class="field-row constant-field" data-field-name="BeforeImage">
+            <span class="field-label">Before image</span>
+            <span class="field-type">image (constant)</span>
+          </div>
+          <!-- Container for dynamic custom fields -->
+          <div id="customFields"></div>
+        </div>
+        <div class="field-actions">
+          <button type="button" id="addFieldBtn">Add custom field</button>
+        </div>
+        <div class="form-actions">
+          <button type="submit" id="saveTemplateBtn">Save template</button>
+          <button type="button" id="resetTemplateBtn">Reset</button>
+        </div>
+      </form>
+      <h3>Saved templates</h3>
+      <div id="templatesList" class="list-container"></div>
+    </section>
+    <!-- Record creation section -->
+    <section id="records" class="page" style="display:none;">
+      <h2>Create new record</h2>
+      <div id="recordSelector" class="card">
+        <label for="selectTemplate">Choose template</label>
+        <select id="selectTemplate"></select>
+      </div>
+      <form id="recordForm" class="card" style="display:none;">
+        <div id="recordFields"></div>
+        <div class="form-actions">
+          <button type="submit" id="saveRecordBtn">Save record</button>
+          <button type="button" id="cancelRecordBtn">Cancel</button>
+        </div>
+      </form>
+    </section>
+    <!-- Patients listing section -->
+    <section id="patients" class="page" style="display:none;">
+      <h2>Patients</h2>
+      <div class="filters card">
+        <label for="searchName">Search by name</label>
+        <input type="text" id="searchName" placeholder="Search...">
+        <label for="filterTemplate">Filter by operation</label>
+        <select id="filterTemplate">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div id="patientsList" class="cards-container"></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
